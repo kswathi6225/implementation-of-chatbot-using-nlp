@@ -43,12 +43,12 @@ def chatbot(input_text):
 
 # Streamlit interface
 def main():
-    # Set page configuration
+    # Set the page configuration for Streamlit
     st.set_page_config(
         page_title="Chatbot",  # Page title
-        page_icon="🤖",         # Emoji icon in the tab
-        layout="wide",          # Wide layout for a spacious look
-        initial_sidebar_state="expanded"  # Expanded sidebar
+        page_icon="🤖",         # Emoji icon
+        layout="wide",          # Wide layout for better appearance
+        initial_sidebar_state="expanded"  # Sidebar open by default
     )
 
     # Custom CSS for green and black theme and sidebar styling
@@ -75,7 +75,7 @@ def main():
                 margin-right: 20px;
             }
             body {
-                background-image: url('https://yourbackgroundimageurl.com/background.jpg');  /* Replace with your image URL */
+                background-image: url('https://www.w3schools.com/w3images/forest.jpg');  /* Replace with your image URL */
                 background-size: cover;
                 background-position: center;
             }
@@ -83,12 +83,8 @@ def main():
             .sidebar .sidebar-content {
                 background-color: #2C3E50;  /* Darker color for sidebar */
             }
-            .sidebar .sidebar-content .sidebar-header {
-                font-size: 24px;
-                color: white;
-            }
             .sidebar .sidebar-content .stButton button {
-                background-color: #16A085;
+                background-color: #16A085;  /* Green button color */
                 color: white;
                 border-radius: 10px;
                 padding: 10px;
@@ -97,6 +93,22 @@ def main():
             }
             .sidebar .sidebar-content .stButton button:hover {
                 background-color: #1abc9c;
+            }
+            /* New Chat Button in the top-right */
+            .new-chat-btn {
+                position: absolute;
+                top: 10px;
+                right: 20px;
+                background-color: #FF6347;  /* Tomato color for the button */
+                color: white;
+                padding: 10px;
+                border-radius: 50%;
+                font-size: 20px;
+                cursor: pointer;
+                border: none;
+            }
+            .new-chat-btn:hover {
+                background-color: #ff4500;
             }
         </style>
     """, unsafe_allow_html=True)
@@ -139,6 +151,8 @@ def main():
             st.write("No history available.")
 
     elif choice == "New Chat":
+        # Add the New Chat button in the right-top corner of the page
+        st.markdown('<button class="new-chat-btn">+</button>', unsafe_allow_html=True)
         st.write("<h2>Start a new conversation with the bot!</h2>", unsafe_allow_html=True)
         st.text_input("You: ", key="new_chat")
 
