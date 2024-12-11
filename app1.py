@@ -47,11 +47,11 @@ def main():
     st.set_page_config(
         page_title="Chatbot",  # Page title
         page_icon="🤖",         # Emoji icon in the tab
-        layout="wide",          # Wide layout for spacious appearance
-        initial_sidebar_state="expanded"  # Keep the sidebar open by default
+        layout="wide",          # Wide layout for a spacious look
+        initial_sidebar_state="expanded"  # Expanded sidebar
     )
 
-    # Custom CSS styling for green and black theme
+    # Custom CSS for green and black theme and sidebar styling
     st.markdown("""
         <style>
             .user-message {
@@ -75,15 +75,35 @@ def main():
                 margin-right: 20px;
             }
             body {
-                background-image: url('https://yourimageurl.com/image.jpg');  /* Replace with your image URL */
+                background-image: url('https://yourbackgroundimageurl.com/background.jpg');  /* Replace with your image URL */
                 background-size: cover;
+                background-position: center;
+            }
+            /* Sidebar customizations */
+            .sidebar .sidebar-content {
+                background-color: #2C3E50;  /* Darker color for sidebar */
+            }
+            .sidebar .sidebar-content .sidebar-header {
+                font-size: 24px;
+                color: white;
+            }
+            .sidebar .sidebar-content .stButton button {
+                background-color: #16A085;
+                color: white;
+                border-radius: 10px;
+                padding: 10px;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .sidebar .sidebar-content .stButton button:hover {
+                background-color: #1abc9c;
             }
         </style>
     """, unsafe_allow_html=True)
 
     # Sidebar menu
-    menu = ["Home", "Conversation History", "About"]
-    choice = st.sidebar.selectbox("Menu", menu)
+    menu = ["Home", "History", "New Chat", "About"]
+    choice = st.sidebar.selectbox("Menu", menu, index=0)
 
     if choice == "Home":
         st.write("<h2>Start chatting with the bot!</h2>", unsafe_allow_html=True)
@@ -103,12 +123,12 @@ def main():
             # Display chatbot response in chat bubble style
             st.markdown(f'<div class="chatbot-message">{response}</div>', unsafe_allow_html=True)
 
-            # Log the conversation to the chat_log.csv
+            # Log the conversation
             with open("chat_log.csv", "a", newline="") as file:
                 writer = csv.writer(file)
                 writer.writerow([user_input, response, datetime.datetime.now()])
 
-    elif choice == "Conversation History":
+    elif choice == "History":
         st.write("Conversation History:")
         if os.path.exists("chat_log.csv"):
             with open("chat_log.csv", "r") as file:
@@ -117,6 +137,10 @@ def main():
                     st.write(f"User: {row[0]} | Chatbot: {row[1]} | Time: {row[2]}")
         else:
             st.write("No history available.")
+
+    elif choice == "New Chat":
+        st.write("<h2>Start a new conversation with the bot!</h2>", unsafe_allow_html=True)
+        st.text_input("You: ", key="new_chat")
 
     elif choice == "About":
         st.write("""
