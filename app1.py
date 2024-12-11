@@ -43,24 +43,20 @@ def chatbot(input_text):
 
 # Streamlit interface
 def main():
+    # Set page configuration
     st.set_page_config(
-        page_title="Chatbot",  # Set the page title
-        page_icon="🤖",         # Add an emoji to the browser tab
-        layout="wide",          # Use wide layout for the app
+        page_title="Chatbot",  # Page title
+        page_icon="🤖",         # Emoji icon in the tab
+        layout="wide",          # Wide layout for spacious appearance
         initial_sidebar_state="expanded"  # Keep the sidebar open by default
     )
 
-    # Add custom CSS styling for the chatbot interface
+    # Custom CSS styling for green and black theme
     st.markdown("""
         <style>
-            .chatbot-container {
-                background-color: #f9f9f9;
-                padding: 20px;
-                border-radius: 15px;
-                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            }
             .user-message {
-                background-color: #c1e1f5;
+                background-color: #8BC34A;  /* Green background */
+                color: white;
                 padding: 10px;
                 border-radius: 10px;
                 margin: 5px;
@@ -69,7 +65,8 @@ def main():
                 margin-left: 20px;
             }
             .chatbot-message {
-                background-color: #e0e0e0;
+                background-color: #212121;  /* Black background */
+                color: white;
                 padding: 10px;
                 border-radius: 10px;
                 margin: 5px;
@@ -77,16 +74,14 @@ def main():
                 max-width: 70%;
                 margin-right: 20px;
             }
-            .sidebar .sidebar-content {
-                background-color: #e0f7fa;
-            }
-            .stTextInput input {
-                background-color: #e3f2fd;
+            body {
+                background-image: url('https://yourimageurl.com/image.jpg');  /* Replace with your image URL */
+                background-size: cover;
             }
         </style>
     """, unsafe_allow_html=True)
 
-    # Sidebar for navigation
+    # Sidebar menu
     menu = ["Home", "Conversation History", "About"]
     choice = st.sidebar.selectbox("Menu", menu)
 
@@ -101,13 +96,14 @@ def main():
         user_input = st.text_input("You: ", key="user_input")
         
         if user_input:
-            # Displaying user message and chatbot response in a chat-like style
+            # Display user message in chat bubble style
             st.markdown(f'<div class="user-message">{user_input}</div>', unsafe_allow_html=True)
 
             response = chatbot(user_input)
+            # Display chatbot response in chat bubble style
             st.markdown(f'<div class="chatbot-message">{response}</div>', unsafe_allow_html=True)
 
-            # Log the conversation
+            # Log the conversation to the chat_log.csv
             with open("chat_log.csv", "a", newline="") as file:
                 writer = csv.writer(file)
                 writer.writerow([user_input, response, datetime.datetime.now()])
