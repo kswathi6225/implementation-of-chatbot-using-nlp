@@ -54,6 +54,7 @@ def main():
     # Custom CSS for green and black theme and sidebar styling
     st.markdown("""
         <style>
+            /* Chat message styling */
             .user-message {
                 background-color: #8BC34A;  /* Green background */
                 color: white;
@@ -74,11 +75,16 @@ def main():
                 max-width: 70%;
                 margin-right: 20px;
             }
-            /* Background image applied directly through Streamlit markdown */
-            body {
-                background-image: url('https://www.w3schools.com/w3images/forest.jpg');  /* Replace with your image URL */
-                background-size: cover;
-                background-position: center;
+            /* Chatbox at the bottom */
+            .chatbox-container {
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
+                padding: 10px;
+                background-color: #f0f0f0;
+                border-radius: 10px;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
             }
             /* Sidebar customizations */
             .sidebar .sidebar-content {
@@ -111,12 +117,39 @@ def main():
             .new-chat-btn:hover {
                 background-color: #ff4500;
             }
+            /* Robot Icon inside the chat */
+            .robot-icon {
+                font-size: 30px;
+                color: #8BC34A;
+                margin-right: 10px;
+                vertical-align: middle;
+            }
+            /* Adding more items to the left sidebar */
+            .sidebar-content-more {
+                padding-top: 20px;
+                color: white;
+                font-size: 18px;
+            }
+            .sidebar-content-more a {
+                color: #16A085;
+                text-decoration: none;
+            }
+            .sidebar-content-more a:hover {
+                color: #1abc9c;
+            }
         </style>
     """, unsafe_allow_html=True)
 
     # Sidebar menu
     menu = ["Home", "History", "New Chat", "About"]
     choice = st.sidebar.selectbox("Menu", menu, index=0)
+
+    # Add extra information in the sidebar
+    st.sidebar.markdown("<div class='sidebar-content-more'>", unsafe_allow_html=True)
+    st.sidebar.markdown("<h4>About the Chatbot</h4>", unsafe_allow_html=True)
+    st.sidebar.markdown("<a href='#'>Chatbot Info</a>", unsafe_allow_html=True)
+    st.sidebar.markdown("<a href='#'>Features</a>", unsafe_allow_html=True)
+    st.sidebar.markdown("</div>", unsafe_allow_html=True)
 
     if choice == "Home":
         st.write("<h2>Start chatting with the bot!</h2>", unsafe_allow_html=True)
@@ -133,8 +166,8 @@ def main():
             st.markdown(f'<div class="user-message">{user_input}</div>', unsafe_allow_html=True)
 
             response = chatbot(user_input)
-            # Display chatbot response in chat bubble style
-            st.markdown(f'<div class="chatbot-message">{response}</div>', unsafe_allow_html=True)
+            # Display chatbot response in chat bubble style with robot icon
+            st.markdown(f'<div class="chatbot-message"><span class="robot-icon">🤖</span>{response}</div>', unsafe_allow_html=True)
 
             # Log the conversation
             with open("chat_log.csv", "a", newline="") as file:
