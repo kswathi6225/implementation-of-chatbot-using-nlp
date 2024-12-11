@@ -74,6 +74,7 @@ def main():
                 max-width: 70%;
                 margin-right: 20px;
             }
+            /* Background image applied directly through Streamlit markdown */
             body {
                 background-image: url('https://www.w3schools.com/w3images/forest.jpg');  /* Replace with your image URL */
                 background-size: cover;
