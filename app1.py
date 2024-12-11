@@ -146,7 +146,8 @@ def main():
 
     # Add extra information in the sidebar
     st.sidebar.markdown("<div class='sidebar-content-more'>", unsafe_allow_html=True)
-    st.sidebar.markdown("<h4>About the Chatbot</h4>", unsafe_allow_html=True)
+    st.sidebar.markdown("<h4>HAPPY CODING!! 🤖</h4>", unsafe_allow_html=True)
+    st.sidebar.markdown("<h5>About the Chatbot</h5>", unsafe_allow_html=True)
     st.sidebar.markdown("<a href='#'>Chatbot Info</a>", unsafe_allow_html=True)
     st.sidebar.markdown("<a href='#'>Features</a>", unsafe_allow_html=True)
     st.sidebar.markdown("</div>", unsafe_allow_html=True)
@@ -194,6 +195,14 @@ def main():
         st.write("""
             This chatbot is powered by **Natural Language Processing (NLP)** and **Logistic Regression**.
             It predicts user intent based on predefined patterns and responds accordingly.
+            Technologies Used
+    - Python: The core language for implementing the chatbot.
+    - Streamlit: Used for building the interactive web interface.
+    - Natural Language Processing (NLP): To process and understand user input.
+    - Logistic Regression: Used as the classifier for identifying the user’s intent.
+    - Scikit-learn: For the NLP vectorization and machine learning model.
+    - Pandas and CSV: For storing conversation history.
+    - nltk: For tokenizing and processing user input.
         """)
 
 if __name__ == "__main__":
